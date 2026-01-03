@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>650</width>
-    <height>425</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,16 +85,35 @@
      <layout class="QVBoxLayout" name="electionSettingsLayout">
       <item>
        <layout class="QGridLayout" name="electionRulesGrid" rowstretch="1,1" columnstretch="1,1">
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
         <item row="1" column="0">
-         <widget class="QGroupBox" name="overhangBox">
+         <widget class="QGroupBox" name="excessSeatsBox">
           <property name="title">
-           <string>Overhang</string>
+           <string>Excess Seats</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <widget class="QRadioButton" name="disableOverhang">
+            <widget class="QRadioButton" name="none">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
-              <string>Disable</string>
+              <string>None</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="overhang">
+             <property name="text">
+              <string>Overhang</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -102,14 +121,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="enableOverhang">
-             <property name="text">
-              <string>Enable</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="useDeselection">
+            <widget class="QRadioButton" name="deselection">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Instead of using overhang seats, extra electorate seats are deselected using this method. This is currently used in Germany after the 2025 election.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
@@ -170,7 +182,7 @@
         <item row="1" column="1">
          <widget class="QGroupBox" name="levelingBox">
           <property name="title">
-           <string>Leveling</string>
+           <string>Leveling Seats</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
@@ -184,11 +196,32 @@
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="enableLeveling">
+            <widget class="QRadioButton" name="arbitraryLeveling">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Leveling seats will be added as needed to create a fully proportional election result.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
-              <string>Enable</string>
+              <string>Arbitrary</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="specifiedLevelingLayout" stretch="0,1">
+             <item>
+              <widget class="QRadioButton" name="specifiedLevelingOption">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="specifiedLevelingSeats">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -237,17 +270,20 @@
         <item row="3" column="0" colspan="2">
          <layout class="QHBoxLayout" name="electionSystemLayout">
           <item>
-           <widget class="QRadioButton" name="mmpChoice">
+           <widget class="QRadioButton" name="mmp">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&amp;quot;MMP&amp;quot; stands for &lt;span style=&quot; font-weight:700;&quot;&gt;Mixed-member proportional&lt;/span&gt;, a system that has both electorates and proportional seats, where list seats are given as compensation to ensure a totally proportional result.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
              <string>MMP</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="mmmChoice">
+           <widget class="QRadioButton" name="mmm">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&amp;quot;MMM&amp;quot; stands for &lt;span style=&quot; font-weight:700;&quot;&gt;Mixed-member majoritarian&lt;/span&gt;, a system that has both electorates and proportional seats, but where proportional seats have no compensatory function.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>

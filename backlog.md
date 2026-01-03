@@ -6,7 +6,9 @@
 - [] MMP and MMM
 - [] Thresholds and tag-along seats
 - [] Overhang and leveling seats
+    - [] Leveling with a forced number of seats
 - [] Toggle threshold for minority parties
+- [] Handles independents
 
 # Vote Count Features
 - [] Automatic updating based on table data

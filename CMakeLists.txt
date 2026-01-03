@@ -28,6 +28,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         party.h
         party.cpp
         votecount.h votecount.cpp
+        extraseatsstrategy.h
+        electiontype.h
+        levelingstrategy.h
+        seatallocation.h seatallocation.cpp
 
 
 
