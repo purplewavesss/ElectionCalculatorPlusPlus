@@ -25,6 +25,7 @@ bool Election::removeParty(const QString& name) {
     for (int i = 0; i < electionData.size(); i++) {
         if (electionData[i].name == name) {
             partyNames.erase(electionData[i].name);
+            partyVotes.erase(electionData[i].name);
             electionData.erase(electionData.begin() + i);
             return true;
         }
@@ -34,7 +35,11 @@ bool Election::removeParty(const QString& name) {
 }
 
 bool Election::removeMostRecent() {
-    if (electionData.size() == 0) return false;
+    uint recentLoc = electionData.size() - 1;
+    if (recentLoc < 0) return false;
+
+    partyNames.erase(electionData[recentLoc].name);
+    partyVotes.erase(electionData[recentLoc].name);
     electionData.pop_back();
     return true;
 }
