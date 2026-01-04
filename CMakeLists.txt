@@ -19,23 +19,27 @@ set(PROJECT_SOURCES
         mainwindow.ui
 )
 
+add_library(ElectionCalculatorCore STATIC
+    backlog.md
+    election.h election.cpp
+    party.h
+    party.cpp
+    votecount.h votecount.cpp
+    extraseatsstrategy.h
+    electiontype.h
+    levelingstrategy.h
+    seatallocation.h seatallocation.cpp
+)
+
+target_include_directories(ElectionCalculatorCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(ElectionCalculatorCore PUBLIC Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ElectionCalculatorCore PUBLIC Qt${QT_VERSION_MAJOR}::Core)
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ElectionCalculatorPlusPlus
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        backlog.md
-        election.h election.cpp
-        party.h
-        party.cpp
-        votecount.h votecount.cpp
-        extraseatsstrategy.h
-        electiontype.h
-        levelingstrategy.h
-        seatallocation.h seatallocation.cpp
-
-
-
-    )
+)
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ElectionCalculatorPlusPlus APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
@@ -54,6 +58,7 @@ else()
     endif()
 endif()
 
+target_link_libraries(ElectionCalculatorPlusPlus PRIVATE ElectionCalculatorCore)
 target_link_libraries(ElectionCalculatorPlusPlus PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -80,3 +85,4 @@ install(TARGETS ElectionCalculatorPlusPlus
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ElectionCalculatorPlusPlus)
 endif()
+add_subdirectory(ElectionCalculatorTests)
