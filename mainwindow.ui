@@ -97,7 +97,10 @@
            <item>
             <widget class="QRadioButton" name="none">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If MMP is enabled, this option removes list seats to remove overhangs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>None</string>

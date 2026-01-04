@@ -11,14 +11,14 @@ Election::Election() {
 }
 
 bool Election::addParty(Party&& party) {
-    if (count.addVotes(party.votes) && !partyNames.contains(party.name)) {
-        partyNames.insert(party.name);
-        partyVotes[party.name] = party.votes;
-        electionData.push_back(std::move(party));
-        return true;
+    if (partyNames.contains(party.name) || !count.addVotes(party.votes)) {
+        return false;
     }
 
-    return false;
+    partyNames.insert(party.name);
+    partyVotes[party.name] = party.votes;
+    electionData.push_back(std::move(party));
+    return true;
 }
 
 bool Election::removeParty(const QString& name) {
@@ -56,14 +56,14 @@ bool Election::setVoteCount(VoteCount&& newCount) {
 void Election::setElectionType(ElectionType newType) {
     electionType = newType;
 
-    // MMP requires an ESS
-    if (electionType == ElectionType::MMP) {
-        extraStrat = ExtraSeatsStrategy::Overhang;
+    // MMM cannot use overhangs
+    if (electionType == ElectionType::MMM && extraStrat == ExtraSeatsStrategy::Overhang) {
+        extraStrat = ExtraSeatsStrategy::None;
     }
 }
 
 bool Election::setExtraSeatsStrategy(ExtraSeatsStrategy newEss) {
-    if (electionType == ElectionType::MMP && newEss == ExtraSeatsStrategy::None) {
+    if (electionType == ElectionType::MMM && newEss == ExtraSeatsStrategy::Overhang) {
         return false;
     }
 
