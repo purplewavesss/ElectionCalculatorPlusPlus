@@ -9,11 +9,14 @@
 #include "votecount.h"
 #include <vector>
 #include <functional>
-#include <set>
+#include <unordered_set>
+#include <queue>
 using std::vector;
 using std::function;
-using std::set;
 using std::unordered_map;
+using std::unordered_set;
+using std::pair;
+using std::priority_queue;
 
 class Election
 {
@@ -49,16 +52,23 @@ public:
     SeatAllocation seats;
 private:
     /// \brief Helper for calculateHighestAveragesResults that calculates proportional results.
-    unordered_map<Party, uint> getInitialHighestAveragesResults(function<double(int)> divisor);
+    unordered_map<QString, uint> getInitialHighestAveragesResults(function<double(int)> divisor, int seats);
 
     /// \brief Helper for calculateLargestRemainderResults that calculates proportional results.
-    unordered_map<Party, uint> getInitialLargestRemainderResults(function<double(int)> divisor);
+    unordered_map<QString, uint> getInitialLargestRemainderResults(function<int(int)> quota, int seats);
+
+    /// \brief Returns a priority queue of all parties and the votes they recieved.
+    priority_queue<pair<double, QString>> getPartyQueue();
+
+    bool recievesListSeats(const Party& party);
+    uint sumMapContents(unordered_map<QString, uint>& contents);
 
     vector<Party> electionData;
-    VoteCount votes;
+    unordered_map<QString, uint> partyVotes;
+    VoteCount count;
     ElectionType electionType;
     ExtraSeatsStrategy extraStrat;
-    set<QString> partyNames;
+    unordered_set<QString> partyNames;
 };
 
 #endif // ELECTION_H

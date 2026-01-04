@@ -1,7 +1,7 @@
 #ifndef LEVELINGSTRATEGY_H
 #define LEVELINGSTRATEGY_H
 
-#include <sys/types.h>
+#include <qtypes.h>
 #include <variant>
 using std::variant;
 
